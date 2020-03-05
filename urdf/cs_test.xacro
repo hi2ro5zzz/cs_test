@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<robot name="cs_test" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<link name="world"/>
+
+    <joint name="joint1" type="fixed">
+      <axis xyz="0 0 0"/>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <parent link="world"/>
+      <child link="base"/>
+    </joint>  
+
+<link name="base">
+    <visual>
+        <origin xyz="0 0 0.6" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://cs_test/models/box.dae"/>
+      </geometry>
+    </visual>
+
+    <collision name="base">
+        <origin xyz="0 0 0.6" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://cs_test/models/box.dae"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+        <origin xyz="0 0 0.6" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="0.083"  ixy="0"  ixz="0" iyy="0.083" iyz="0" izz="0.083"/>
+    </inertial>
+</link> 
+
+<gazebo reference="base">
+    <mu1 value="200" />
+    <mu2 value="100" />
+    <selfCollide>true</selfCollide>
+    <sensor name="contact_sensor" type="contact">
+    <always_on>true</always_on>
+    <update_rate>100.0</update_rate>
+    <contact>
+      <collision>base_collision</collision>
+    </contact>
+    <plugin name="cs_test" filename="libcs_test.so">
+      <bumperTopicName>state1</bumperTopicName>
+      <frameName>world</frameName>
+    </plugin>
+   </sensor>
+</gazebo>
+
+</robot>

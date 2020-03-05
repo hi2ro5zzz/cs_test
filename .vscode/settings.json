@@ -1,7 +1,0 @@
-{
-    "python.autoComplete.extraPaths": [
-        "/home/sensor/gazebo_ws/devel/lib/python2.7/dist-packages",
-        "/home/sensor/research_ws/devel/lib/python2.7/dist-packages",
-        "/opt/ros/kinetic/lib/python2.7/dist-packages"
-    ]
-}

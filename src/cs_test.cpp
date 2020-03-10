@@ -262,23 +262,6 @@ void GazeboRosBumper::OnContact()
                             contact.wrench(j).body_1_wrench().torque().y(),
                             contact.wrench(j).body_1_wrench().torque().z()));
 
-      // set wrenches
-      geometry_msgs::Wrench wrench;
-      wrench.force.x  = force.X();
-      wrench.force.y  = force.Y();
-      wrench.force.z  = 10000*force.Z();
-      wrench.torque.x = torque.X();
-      wrench.torque.y = torque.Y();
-      wrench.torque.z = torque.Z();
-      state.wrenches.push_back(wrench);
-
-      total_wrench.force.x  += wrench.force.x;
-      total_wrench.force.y  += wrench.force.y;
-      total_wrench.force.z  += wrench.force.z;
-      total_wrench.torque.x += wrench.torque.x;
-      total_wrench.torque.y += wrench.torque.y;
-      total_wrench.torque.z += wrench.torque.z;
-
       // transform contact positions into relative frame
       // set contact positions
       ignition::math::Vector3d position = frame_rot.RotateVectorReverse(
@@ -306,6 +289,43 @@ void GazeboRosBumper::OnContact()
 
       // set contact depth, interpenetration
       state.depths.push_back(contact.depth(j));
+
+      // set wrenches
+      geometry_msgs::Wrench wrench;
+
+      if(contact_position.x > 1)
+      {
+          wrench.force.x  = 2;
+      }
+      else
+      {
+          wrench.force.x = 1;
+      }
+    
+      wrench.force.y  = force.Y();
+
+      // if(contact_position.z > 0.5)
+      // {
+      //     wrench.force.z  = 2;
+      // }
+      // else
+      // {
+      //     wrench.force.z  = 1;
+      // }
+
+      wrench.force.z = force.Z();
+    
+      wrench.torque.x = torque.X();
+      wrench.torque.y = torque.Y();
+      wrench.torque.z = torque.Z();
+      state.wrenches.push_back(wrench);
+
+      total_wrench.force.x  += wrench.force.x;
+      total_wrench.force.y  += wrench.force.y;
+      total_wrench.force.z  += wrench.force.z;
+      total_wrench.torque.x += wrench.torque.x;
+      total_wrench.torque.y += wrench.torque.y;
+      total_wrench.torque.z += wrench.torque.z;
     }
 
     state.total_wrench = total_wrench;

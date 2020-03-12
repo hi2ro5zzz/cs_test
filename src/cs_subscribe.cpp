@@ -38,12 +38,12 @@
 
 #include <tf/tf.h>
 
-#include <gazebo_plugins/gazebo_ros_bumper.h>
+#include <cs_test/cs_change.h>
 #include <gazebo_plugins/gazebo_ros_utils.h>
 
-#include <geometry_msgs/Vector3.h>
+#include <geometry_msgs/Wrench.h>
 
-geometry_msgs::Vector3 pubforce;
+geometry_msgs::Wrench pubforce;
 
 namespace gazebo
 {
@@ -66,19 +66,19 @@ GazeboRosBumper::~GazeboRosBumper()
   delete this->rosnode_;
 }
 
-void msgCB(const geometry_msgs::Vector3::ConstPtr& msg)
+void msgCB(const geometry_msgs::Wrench::ConstPtr& msg)
 {
     if(!msg)
     {
-      pubforce.x = 2;
-      pubforce.y = 2;
-      pubforce.z = 2;
+      pubforce.force.x = 2;
+      pubforce.force.y = 2;
+      pubforce.force.z = 2;
     }
     else
     {
-      pubforce.x = msg->x;
-      pubforce.y = msg->y;
-      pubforce.z = msg->z;
+      pubforce.force.x = msg->force.x;
+      pubforce.force.y = msg->force.y;
+      pubforce.force.z = msg->force.z;
     }
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -132,6 +132,9 @@ void GazeboRosBumper::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
 
   this->contact_pub_ = this->rosnode_->advertise<gazebo_msgs::ContactsState>(
     std::string(this->bumper_topic_name_), 1);
+
+  this->forcesub = this->rosnode_->subscribe<geometry_msgs::Wrench>(
+    "cs_msg",1,msgCB);
 
   // Initialize
   // start custom queue for contact bumper
@@ -311,9 +314,9 @@ void GazeboRosBumper::OnContact()
 
       // set wrenches
       geometry_msgs::Wrench wrench;
-      wrench.force.x  = pubforce.x;
-      wrench.force.y  = pubforce.y;
-      wrench.force.z  = pubforce.z;
+      wrench.force.x  = pubforce.force.x;
+      wrench.force.y  = pubforce.force.y;
+      wrench.force.z  = pubforce.force.z;
       wrench.torque.x = torque.X();
       wrench.torque.y = torque.Y();
       wrench.torque.z = torque.Z();

@@ -3,7 +3,7 @@
 #include <ros/ros.h>
 #include <gazebo_msgs/ContactsState.h>
 #include <std_msgs/Float64.h>
-#include <geometry_msgs/Vector3.h>
+#include <geometry_msgs/Wrench.h>
 
 gazebo_msgs::ContactsState s1,s2;
 
@@ -23,10 +23,10 @@ void Sensor1CB(const gazebo_msgs::ContactsState::ConstPtr msg)
         // lol.data = s1.states[0].wrenches[0].force.z;
         // forcepub1.publish(lol);
 
-        geometry_msgs::Vector3 force1;
-        force1.x = s1.states[0].wrenches[0].force.x;
-        force1.y = s1.states[0].wrenches[0].force.y;
-        force1.z = s1.states[0].wrenches[0].force.z;
+        geometry_msgs::Wrench force1;
+        force1.force.x = s1.states[0].wrenches[0].force.x;
+        force1.force.y = s1.states[0].wrenches[0].force.y;
+        force1.force.z = s1.states[0].wrenches[0].force.z;
         cs_pub1.publish(force1);
     }
     
@@ -42,10 +42,10 @@ void Sensor2CB(const gazebo_msgs::ContactsState::ConstPtr msg)
         // lol.data = s2.states[0].wrenches[0].force.z;
         // forcepub2.publish(lol);
 
-        geometry_msgs::Vector3 force2;
-        force2.x = s1.states[0].wrenches[0].force.x;
-        force2.y = s1.states[0].wrenches[0].force.y;
-        force2.z = s1.states[0].wrenches[0].force.z;
+        geometry_msgs::Wrench force2;
+        force2.force.x = s1.states[0].wrenches[0].force.x;
+        force2.force.y = s1.states[0].wrenches[0].force.y;
+        force2.force.z = s1.states[0].wrenches[0].force.z;
         cs_pub2.publish(force2);
     }
 }
@@ -62,11 +62,11 @@ int main(int argc, char** argv)
 
     // ros::Publisher cb_pub = nh.advertise<std_msgs::String>("cb_msg",1);
     // ros::Publisher start_pub = nh.advertise<std_msgs::Int32>("start_msg",1);
-    forcepub1 = nh.advertise<std_msgs::Float64>("xforce1",1);
-    forcepub2 = nh.advertise<std_msgs::Float64>("xforce2",1);
+    // forcepub1 = nh.advertise<std_msgs::Float64>("xforce1",1);
+    // forcepub2 = nh.advertise<std_msgs::Float64>("xforce2",1);
 
-    cs_pub1 = nh.advertise<geometry_msgs::Vector3>("force1",1);
-    cs_pub2 = nh.advertise<geometry_msgs::Vector3>("force2",1);
+    cs_pub1 = nh.advertise<geometry_msgs::Wrench>("force1",1);
+    cs_pub2 = nh.advertise<geometry_msgs::Wrench>("force2",1);
 
     // forcepub1 = nh.advertise<std_msgs::Float64>("zforce1",1);
     // forcepub2 = nh.advertise<std_msgs::Float64>("zforce2",1);

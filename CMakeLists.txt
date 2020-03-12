@@ -19,6 +19,7 @@ find_package(catkin REQUIRED COMPONENTS
   gazebo_ros 
   gazebo_msgs
   std_msgs
+  geometry_msgs
 )
 
 # Depend on system install of Gazebo
@@ -36,11 +37,18 @@ catkin_package(
     gazebo_ros
     gazebo_msgs 
     std_msgs
+    geometry_msgs
 )
 
 add_library(cs_test src/cs_test.cpp)
 # add_dependencies(gazebo_ros_bumper ${catkin_EXPORTED_TARGETS})
 target_link_libraries(cs_test ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 
+add_library(cs_sub src/cs_subscribe.cpp)
+# add_dependencies(gazebo_ros_bumper ${catkin_EXPORTED_TARGETS})
+target_link_libraries(cs_sub ${Boost_LIBRARIES} ${catkin_LIBRARIES})
+
 add_executable(cs_plot src/cs_plot.cpp)
 target_link_libraries(cs_plot ${catkin_LIBRARIES})
+add_executable(cs_pub src/cs_publish.cpp)
+target_link_libraries(cs_pub ${catkin_LIBRARIES})

@@ -41,6 +41,10 @@
 #include <gazebo_plugins/gazebo_ros_bumper.h>
 #include <gazebo_plugins/gazebo_ros_utils.h>
 
+#include <geometry_msgs/Vector3.h>
+
+geometry_msgs::Vector3 pubforce;
+
 namespace gazebo
 {
 // Register this plugin with the simulator
@@ -62,6 +66,21 @@ GazeboRosBumper::~GazeboRosBumper()
   delete this->rosnode_;
 }
 
+void msgCB(const geometry_msgs::Vector3::ConstPtr msg)
+{
+    if(!msg)
+    {
+      pubforce.x = 2;
+      pubforce.y = 2;
+      pubforce.z = 2;
+    }
+    else
+    {
+      pubforce.x = msg.x;
+      pubforce.y = msg.y;
+      pubforce.z = msg.z;
+    }
+}
 ////////////////////////////////////////////////////////////////////////////////
 // Load the controller
 void GazeboRosBumper::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
@@ -292,9 +311,9 @@ void GazeboRosBumper::OnContact()
 
       // set wrenches
       geometry_msgs::Wrench wrench;
-      wrench.force.x  = force.X();
-      wrench.force.y  = force.Y();
-      wrench.force.z  = force.Z();
+      wrench.force.x  = pubforce.x;
+      wrench.force.y  = pubforce.y;
+      wrench.force.z  = pubforce.z;
       wrench.torque.x = torque.X();
       wrench.torque.y = torque.Y();
       wrench.torque.z = torque.Z();

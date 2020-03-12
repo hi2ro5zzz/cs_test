@@ -133,6 +133,7 @@ void GazeboRosBumper::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
   this->contact_pub_ = this->rosnode_->advertise<gazebo_msgs::ContactsState>(
     std::string(this->bumper_topic_name_), 1);
 
+  // 外部入力を受け取るサブスクライバ(add new)
   this->forcesub = this->rosnode_->subscribe<geometry_msgs::Wrench>(
     "cs_msg",1,msgCB);
 
@@ -314,9 +315,13 @@ void GazeboRosBumper::OnContact()
 
       // set wrenches
       geometry_msgs::Wrench wrench;
+
+      // サブスクライブした値をforceとして出力
       wrench.force.x  = pubforce.force.x;
       wrench.force.y  = pubforce.force.y;
       wrench.force.z  = pubforce.force.z;
+
+      // トルクは変更なし
       wrench.torque.x = torque.X();
       wrench.torque.y = torque.Y();
       wrench.torque.z = torque.Z();

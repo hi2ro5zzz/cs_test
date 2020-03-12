@@ -23,6 +23,7 @@ void Sensor1CB(const gazebo_msgs::ContactsState::ConstPtr msg)
         // lol.data = s1.states[0].wrenches[0].force.z;
         // forcepub1.publish(lol);
 
+        // Gazeboから得られるデータを格納
         geometry_msgs::Wrench force1;
         force1.force.x = s1.states[0].wrenches[0].force.x;
         force1.force.y = s1.states[0].wrenches[0].force.y;
@@ -42,6 +43,7 @@ void Sensor2CB(const gazebo_msgs::ContactsState::ConstPtr msg)
         // lol.data = s2.states[0].wrenches[0].force.z;
         // forcepub2.publish(lol);
 
+        // Gazeboから得られるデータを格納
         geometry_msgs::Wrench force2;
         force2.force.x = s1.states[0].wrenches[0].force.x;
         force2.force.y = s1.states[0].wrenches[0].force.y;
@@ -65,12 +67,14 @@ int main(int argc, char** argv)
     // forcepub1 = nh.advertise<std_msgs::Float64>("xforce1",1);
     // forcepub2 = nh.advertise<std_msgs::Float64>("xforce2",1);
 
+    // Gazeboから取得し，格納したデータをパブリッシュ
     cs_pub1 = nh.advertise<geometry_msgs::Wrench>("force1",1);
     cs_pub2 = nh.advertise<geometry_msgs::Wrench>("force2",1);
 
     // forcepub1 = nh.advertise<std_msgs::Float64>("zforce1",1);
     // forcepub2 = nh.advertise<std_msgs::Float64>("zforce2",1);
     
+    // Gazeboからデータをサブスクライブ
     ros::Subscriber sensor1_sub = nh.subscribe("/state1",1,Sensor1CB);
     ros::Subscriber sensor2_sub = nh.subscribe("/state2",1,Sensor2CB);
 

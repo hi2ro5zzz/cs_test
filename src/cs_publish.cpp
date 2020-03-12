@@ -14,6 +14,7 @@ int main(int argc, char** argv)
 
     geometry_msgs::Wrench force;
 
+    // プラグインへ力の情報を出力
     force.force.x = 3;
     force.force.y = 3;
     force.force.z = 3;

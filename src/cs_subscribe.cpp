@@ -42,8 +42,6 @@
 #include <gazebo_plugins/gazebo_ros_utils.h>
 
 
-geometry_msgs::Wrench pubforce;
-
 namespace gazebo
 {
 // Register this plugin with the simulator

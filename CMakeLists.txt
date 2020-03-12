@@ -26,12 +26,13 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(gazebo REQUIRED)
 
 link_directories(${GAZEBO_LIBRARY_DIRS})
-include_directories(${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS})
+include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS})
 
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES 
     # gazebo_ros_bumper
+    cs_change
   DEPENDS 
     roscpp 
     gazebo_ros
@@ -45,7 +46,7 @@ add_library(cs_test src/cs_test.cpp)
 target_link_libraries(cs_test ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 
 add_library(cs_sub src/cs_subscribe.cpp)
-# add_dependencies(gazebo_ros_bumper ${catkin_EXPORTED_TARGETS})
+# add_dependencies(cs_change ${catkin_EXPORTED_TARGETS})
 target_link_libraries(cs_sub ${Boost_LIBRARIES} ${catkin_LIBRARIES})
 
 add_executable(cs_plot src/cs_plot.cpp)

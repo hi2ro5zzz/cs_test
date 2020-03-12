@@ -71,7 +71,7 @@
     <contact>
       <collision>base1_collision</collision>
     </contact>
-    <plugin name="cs_test" filename="libcs_test.so">
+    <plugin name="cs_sub" filename="libcs_sub.so">
       <bumperTopicName>state1</bumperTopicName>
       <frameName>world</frameName>
     </plugin>
@@ -88,7 +88,7 @@
     <contact>
       <collision>base2_collision</collision>
     </contact>
-    <plugin name="cs_test" filename="libcs_test.so">
+    <plugin name="cs_sub" filename="libcs_sub.so">
       <bumperTopicName>state2</bumperTopicName>
       <frameName>world</frameName>
     </plugin>

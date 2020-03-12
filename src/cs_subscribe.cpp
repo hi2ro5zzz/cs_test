@@ -67,15 +67,15 @@ void msgCB(const geometry_msgs::Wrench::ConstPtr& msg)
 {
     if(!msg)
     {
-      pubforce.force.x = 2;
-      pubforce.force.y = 2;
-      pubforce.force.z = 2;
+      this->pubforce.force.x = 2;
+      this->pubforce.force.y = 2;
+      this->pubforce.force.z = 2;
     }
     else
     {
-      pubforce.force.x = msg->force.x;
-      pubforce.force.y = msg->force.y;
-      pubforce.force.z = msg->force.z;
+      this->pubforce.force.x = msg->force.x;
+      this->pubforce.force.y = msg->force.y;
+      this->pubforce.force.z = msg->force.z;
     }
 }
 ////////////////////////////////////////////////////////////////////////////////

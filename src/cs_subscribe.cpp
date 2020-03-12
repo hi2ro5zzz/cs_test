@@ -66,7 +66,7 @@ GazeboRosBumper::~GazeboRosBumper()
   delete this->rosnode_;
 }
 
-void msgCB(const geometry_msgs::Vector3::ConstPtr msg)
+void msgCB(const geometry_msgs::Vector3::ConstPtr& msg)
 {
     if(!msg)
     {
@@ -76,9 +76,9 @@ void msgCB(const geometry_msgs::Vector3::ConstPtr msg)
     }
     else
     {
-      pubforce.x = msg.x;
-      pubforce.y = msg.y;
-      pubforce.z = msg.z;
+      pubforce.x = msg->x;
+      pubforce.y = msg->y;
+      pubforce.z = msg->z;
     }
 }
 ////////////////////////////////////////////////////////////////////////////////

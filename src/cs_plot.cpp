@@ -23,7 +23,7 @@ void Sensor1CB(const gazebo_msgs::ContactsState::ConstPtr msg)
         // lol.data = s1.states[0].wrenches[0].force.z;
         // forcepub1.publish(lol);
 
-        geometory_msgs::Vector3 force1;
+        geometry_msgs::Vector3 force1;
         force1.x = s1.states[0].wrenches[0].force.x;
         force1.y = s1.states[0].wrenches[0].force.y;
         force1.z = s1.states[0].wrenches[0].force.z;
@@ -42,7 +42,7 @@ void Sensor2CB(const gazebo_msgs::ContactsState::ConstPtr msg)
         // lol.data = s2.states[0].wrenches[0].force.z;
         // forcepub2.publish(lol);
 
-        geometory_msgs::Vector3 force2;
+        geometry_msgs::Vector3 force2;
         force2.x = s1.states[0].wrenches[0].force.x;
         force2.y = s1.states[0].wrenches[0].force.y;
         force2.z = s1.states[0].wrenches[0].force.z;

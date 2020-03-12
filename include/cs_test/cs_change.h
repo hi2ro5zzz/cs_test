@@ -30,6 +30,7 @@
 #include <boost/thread/mutex.hpp>
 
 #include <std_msgs/String.h>
+#include <geometry_msgs/Vector3.h>
 
 #include <gazebo_msgs/ContactState.h>
 #include <gazebo_msgs/ContactsState.h>
@@ -66,6 +67,7 @@ namespace gazebo
     /// \brief pointer to ros node
     private: ros::NodeHandle* rosnode_;
     private: ros::Publisher contact_pub_;
+    private: ros::Subscriber forcesub;
 
     private: sensors::ContactSensorPtr parentSensor;
 

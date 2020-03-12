@@ -30,7 +30,7 @@
 #include <boost/thread/mutex.hpp>
 
 #include <std_msgs/String.h>
-#include <geometry_msgs/Vector3.h>
+#include <geometry_msgs/Wrench.h>
 
 #include <gazebo_msgs/ContactState.h>
 #include <gazebo_msgs/ContactsState.h>
@@ -67,8 +67,12 @@ namespace gazebo
     /// \brief pointer to ros node
     private: ros::NodeHandle* rosnode_;
     private: ros::Publisher contact_pub_;
+
     /// 外部入力を受け取るサブスクライバ(add new)
     private: ros::Subscriber forcesub;
+
+    /// 外部入力のメッセージ型
+    private: geometry_msgs::Wrench pubforce;
 
     private: sensors::ContactSensorPtr parentSensor;
 

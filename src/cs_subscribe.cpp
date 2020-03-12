@@ -41,7 +41,6 @@
 #include <cs_test/cs_change.h>
 #include <gazebo_plugins/gazebo_ros_utils.h>
 
-#include <geometry_msgs/Wrench.h>
 
 geometry_msgs::Wrench pubforce;
 

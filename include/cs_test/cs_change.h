@@ -67,6 +67,7 @@ namespace gazebo
     /// \brief pointer to ros node
     private: ros::NodeHandle* rosnode_;
     private: ros::Publisher contact_pub_;
+    /// 外部入力を受け取るサブスクライバ(add new)
     private: ros::Subscriber forcesub;
 
     private: sensors::ContactSensorPtr parentSensor;

@@ -61,6 +61,9 @@ namespace gazebo
     /// \param take in SDF root element
     public: void Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf);
 
+    /// 外部入力コールバック関数の定義
+    private: void msgCB(const geometry_msgs::Wrench::ConstPtr& msg);
+
     /// Update the controller
     private: void OnContact();
 
@@ -72,7 +75,7 @@ namespace gazebo
     private: ros::Subscriber forcesub;
 
     /// 外部入力のメッセージ型
-    private: geometry_msgs::Wrench pubforce;
+    public: geometry_msgs::Wrench pubforce;
 
     private: sensors::ContactSensorPtr parentSensor;
 

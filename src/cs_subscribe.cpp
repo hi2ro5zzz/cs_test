@@ -63,7 +63,7 @@ GazeboRosBumper::~GazeboRosBumper()
   delete this->rosnode_;
 }
 
-void msgCB(const geometry_msgs::Wrench::ConstPtr& msg)
+void GazeboRosBumper::msgCB(const geometry_msgs::Wrench::ConstPtr& msg)
 {
     if(!msg)
     {
@@ -132,7 +132,7 @@ void GazeboRosBumper::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
 
   // 外部入力を受け取るサブスクライバ(add new)
   this->forcesub = this->rosnode_->subscribe<geometry_msgs::Wrench>(
-    "cs_msg",1,msgCB);
+    std::string("cs_msg"), 1, &GazeboRosBumper::msgCB, this);
 
   // Initialize
   // start custom queue for contact bumper

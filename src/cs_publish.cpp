@@ -16,8 +16,8 @@ int main(int argc, char** argv)
 
     // プラグインへ力の情報を出力
     force.force.x = 3;
-    force.force.y = 3;
-    force.force.z = 3;
+    force.force.y = 2;
+    force.force.z = 1;
 
     while(ros::ok())
     {

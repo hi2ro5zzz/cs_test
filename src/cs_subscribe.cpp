@@ -65,18 +65,9 @@ GazeboRosBumper::~GazeboRosBumper()
 
 void GazeboRosBumper::msgCB(const geometry_msgs::Wrench::ConstPtr& msg)
 {
-    if(!msg)
-    {
-      this->pubforce.force.x = 2;
-      this->pubforce.force.y = 2;
-      this->pubforce.force.z = 2;
-    }
-    else
-    {
       this->pubforce.force.x = msg->force.x;
       this->pubforce.force.y = msg->force.y;
       this->pubforce.force.z = msg->force.z;
-    }
 }
 ////////////////////////////////////////////////////////////////////////////////
 // Load the controller

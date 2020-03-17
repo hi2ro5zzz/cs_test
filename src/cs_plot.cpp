@@ -59,7 +59,7 @@ int main(int argc, char** argv)
     ros::Subscriber sensor1_sub = nh.subscribe("/state1",1,Sensor1CB);
     ros::Subscriber sensor2_sub = nh.subscribe("/state2",1,Sensor2CB);
 
-    ros::Rate loop_rate(100);
+    ros::Rate loop_rate(1000);
 
     while(ros::ok())
     {

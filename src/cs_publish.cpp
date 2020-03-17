@@ -1,4 +1,6 @@
+#define _USE_MATH_DEFINES
 #include <iostream>
+#include <cmath>
 
 #include <ros/ros.h>
 #include <geometry_msgs/Wrench.h>
@@ -18,8 +20,8 @@ int main(int argc, char** argv)
     while(ros::ok())
     {
         // プラグインへ力の情報を出力
-        force.force.x = sin(i*3.14/60);
-        force.force.y = cos(i*3.14/60);
+        force.force.x = sin(2*M_PI/60*i);
+        force.force.y = cos(2*M_PI/60*i);
         force.force.z = 1;
 
         cs_pub.publish(force);

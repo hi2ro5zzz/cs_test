@@ -63,6 +63,13 @@ GazeboRosBumper::~GazeboRosBumper()
   delete this->rosnode_;
 }
 
+void GazeboRosBumper::msgCB(const geometry_msgs::Wrench::ConstPtr& msg)
+{
+      pubforce.force.x = msg->force.x;
+      pubforce.force.y = msg->force.y;
+      pubforce.force.z = msg->force.z;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Load the controller
 void GazeboRosBumper::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
@@ -322,13 +329,6 @@ void GazeboRosBumper::OnContact()
   }
 
   this->contact_pub_.publish(this->contact_state_msg_);
-}
-
-void GazeboRosBumper::msgCB(const geometry_msgs::Wrench::ConstPtr& msg)
-{
-      pubforce.force.x = msg->force.x;
-      pubforce.force.y = msg->force.y;
-      pubforce.force.z = msg->force.z;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

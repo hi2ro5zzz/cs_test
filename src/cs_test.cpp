@@ -149,32 +149,32 @@ void GazeboRosBumper::OnContact()
   // if frameName specified is "world", "/map" or "map" report back
   // inertial values in the gazebo world
 */
-  physics::LinkPtr myFrame;
-  if (myFrame == NULL && this->frame_name_ != "world" &&
-    this->frame_name_ != "/map" && this->frame_name_ != "map")
-  {
-    // lock in case a model is being spawned
-    boost::recursive_mutex::scoped_lock lock(
-      *Simulator::Instance()->GetMRMutex());
-    // look through all models in the world, search for body
-    // name that matches frameName
-    physics::Model_V all_models = World::Instance()->Models();
-    for (physics::Model_V::iterator iter = all_models.begin();
-      iter != all_models.end(); iter++)
-    {
-      if (*iter) myFrame =
-        boost::dynamic_pointer_cast<physics::Link>((*iter)->GetLink(this->frame_name_));
-      if (myFrame) break;
-    }
+  // physics::LinkPtr myFrame;
+  // if (myFrame == NULL && this->frame_name_ != "world" &&
+  //   this->frame_name_ != "/map" && this->frame_name_ != "map")
+  // {
+  //   // lock in case a model is being spawned
+  //   // boost::recursive_mutex::scoped_lock lock(
+  //   //   *Simulator::Instance()->GetMRMutex());
+  //   // look through all models in the world, search for body
+  //   // name that matches frameName
+  //   physics::Model_V all_models = World::Instance()->Models();
+  //   for (physics::Model_V::iterator iter = all_models.begin();
+  //     iter != all_models.end(); iter++)
+  //   {
+  //     if (*iter) myFrame =
+  //       boost::dynamic_pointer_cast<physics::Link>((*iter)->GetLink(this->frame_name_));
+  //     if (myFrame) break;
+  //   }
 
-    // not found
-    if (!myFrame)
-    {
-      ROS_INFO_NAMED("bumper", "gazebo_ros_bumper plugin: frameName: %s does not exist"
-                " yet, will not publish\n",this->frame_name_.c_str());
-      return;
-    }
-  }
+  //   // not found
+  //   if (!myFrame)
+  //   {
+  //     ROS_INFO_NAMED("bumper", "gazebo_ros_bumper plugin: frameName: %s does not exist"
+  //               " yet, will not publish\n",this->frame_name_.c_str());
+  //     return;
+  //   }
+  // }
 
   // get reference frame (body(link)) pose and subtract from it to get
   // relative force, torque, position and normal vectors
@@ -182,13 +182,13 @@ void GazeboRosBumper::OnContact()
   ignition::math::Quaterniond rot, frame_rot;
   ignition::math::Vector3d pos, frame_pos;
   
-  if (myFrame)
-  {
-    frame_pose = myFrame->WorldPose();  //-this->myBody->GetCoMPose();
-    frame_pos = frame_pose.Pos();
-    frame_rot = frame_pose.Rot();
-  }
-  else
+  // if (myFrame)
+  // {
+  //   frame_pose = myFrame->WorldPose();  //-this->myBody->GetCoMPose();
+  //   frame_pos = frame_pose.Pos();
+  //   frame_rot = frame_pose.Rot();
+  // }
+  // else
   
   {
     // no specific frames specified, use identity pose, keeping
@@ -265,10 +265,10 @@ void GazeboRosBumper::OnContact()
 
       // transform contact positions into relative frame
       // set contact positions
-      ignition::math::Vector3d position = frame_rot.RotateVectorReverse(
+      ignition::math::Vector3d position =  // frame_rot.RotateVectorReverse(
           ignition::math::Vector3d(contact.position(j).x(),
                                    contact.position(j).y(),
-                                   contact.position(j).z()) - frame_pos);
+                                   contact.position(j).z()); // - frame_pos);
       geometry_msgs::Vector3 contact_position;
       contact_position.x = position.X();
       contact_position.y = position.Y();

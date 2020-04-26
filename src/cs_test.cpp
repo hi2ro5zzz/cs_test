@@ -148,6 +148,7 @@ void GazeboRosBumper::OnContact()
 
   // if frameName specified is "world", "/map" or "map" report back
   // inertial values in the gazebo world
+*/
   physics::LinkPtr myFrame;
   if (myFrame == NULL && this->frame_name_ != "world" &&
     this->frame_name_ != "/map" && this->frame_name_ != "map")
@@ -174,13 +175,13 @@ void GazeboRosBumper::OnContact()
       return;
     }
   }
-*/
+
   // get reference frame (body(link)) pose and subtract from it to get
   // relative force, torque, position and normal vectors
   ignition::math::Pose3d pose, frame_pose;
   ignition::math::Quaterniond rot, frame_rot;
   ignition::math::Vector3d pos, frame_pos;
-  /*
+  
   if (myFrame)
   {
     frame_pose = myFrame->WorldPose();  //-this->myBody->GetCoMPose();
@@ -188,7 +189,7 @@ void GazeboRosBumper::OnContact()
     frame_rot = frame_pose.Rot();
   }
   else
-  */
+  
   {
     // no specific frames specified, use identity pose, keeping
     // relative frame at inertial origin

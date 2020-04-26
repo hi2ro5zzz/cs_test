@@ -12,7 +12,7 @@ int main(int argc, char** argv)
     
     ros::Publisher cs_pub = nh.advertise<geometry_msgs::Wrench>("cs_msg",1);
 
-    ros::Rate loop_rate(1000);
+    ros::Rate loop_rate(100);
 
     geometry_msgs::Wrench force;
     int i = 0;
@@ -20,8 +20,8 @@ int main(int argc, char** argv)
     while(ros::ok())
     {
         // プラグインへ力の情報を出力
-        force.force.x = sin(2*M_PI/60*i);
-        force.force.y = cos(2*M_PI/60*i);
+        force.force.x = sin(2*M_PI/100*i);
+        force.force.y = cos(2*M_PI/100*i);
         force.force.z = 1;
 
         cs_pub.publish(force);

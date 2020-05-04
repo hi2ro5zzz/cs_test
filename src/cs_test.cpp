@@ -294,13 +294,14 @@ void GazeboRosBumper::OnContact()
       // set wrenches
       geometry_msgs::Wrench wrench;
 
-      capacitance.z = 0.0092 * std::pow( force.Z() , 2 ) + 0.0393 * force.Z() + 1.3319;
+      capacitance.z = 0.0092 * std::pow( force.Z() , 2 ) + 0.0393 * force.Z() + 1.3318;
       
       wrench.force.x = force.X();
       
       wrench.force.y = force.Y();
 
       wrench.force.z = - 22.402 * std::pow( capacitance.z , 2 ) + 79.235 * capacitance.z - 65.768;
+      // wrench.force.z = force.Z();
     
       wrench.torque.x = torque.X();
       wrench.torque.y = torque.Y();

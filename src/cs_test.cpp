@@ -294,7 +294,58 @@ void GazeboRosBumper::OnContact()
       // set wrenches
       geometry_msgs::Wrench wrench;
 
-      capacitance.z = 0.0092 * std::pow( force.Z() , 2 ) + 0.0393 * force.Z() + 1.3318;
+      // calculate capacitance
+      if( contact.position.x < 0.5 && contact.position.x > -0.5 && 
+          contact.position.y < 0.5 && contact.position.y > -0.5 )
+               {
+                  capacitance.z = 0.0092 * std::pow( force.Z() , 2 ) + 0.0393 * force.Z() + 1.3318;
+               }
+      else if( contact.position.x < 1.0 && contact.position.x >  0.5 && 
+               contact.position.y < 0.5 && contact.position.y > -0.5 )
+               {
+                  capacitance.z = 0.0106 * std::pow( force.Z() , 2 ) + 0.0361 * force.Z() + 1.3321;
+               }
+      else if( contact.position.x < 1.5 && contact.position.x >  1.0 && 
+               contact.position.y < 0.5 && contact.position.y > -0.5 )
+               {
+                  capacitance.z = 0.0068 * std::pow( force.Z() , 2 ) + 0.0478 * force.Z() + 1.3308;
+               }
+      else if( contact.position.x < -0.5 && contact.position.x > -1.0 && 
+               contact.position.y <  0.5 && contact.position.y > -0.5 )
+               {
+                  capacitance.z = 0.0082 * std::pow( force.Z() , 2 ) + 0.0436 * force.Z() + 1.3316;
+               }
+      else if( contact.position.x < -1.0 && contact.position.x > -1.5 && 
+               contact.position.y <  0.5 && contact.position.y > -0.5 )
+               {
+                  capacitance.z = 0.0041 * std::pow( force.Z() , 2 ) + 0.0538 * force.Z() + 1.3298;
+               }
+      else if( contact.position.x < 0.5 && contact.position.x > -0.5 && 
+               contact.position.y < 1.0 && contact.position.y >  0.5 )
+               {
+                  capacitance.z = 0.0100 * std::pow( force.Z() , 2 ) + 0.0419 * force.Z() + 1.3324;
+               }
+      else if( contact.position.x < 0.5 && contact.position.x > -0.5 && 
+               contact.position.y < 1.5 && contact.position.y >  1.0 )
+               {
+                  capacitance.z = 0.0059 * std::pow( force.Z() , 2 ) + 0.0533 * force.Z() + 1.3320;
+               }
+      else if( contact.position.x <  0.5 && contact.position.x > -0.5 && 
+               contact.position.y < -0.5 && contact.position.y > -1.0 )
+               {
+                  capacitance.z = 0.0082 * std::pow( force.Z() , 2 ) + 0.0448 * force.Z() + 1.3322;
+               }
+      else if( contact.position.x <  0.5 && contact.position.x > -0.5 && 
+               contact.position.y < -1.0 && contact.position.y > -1.5 )
+               {
+                  capacitance.z = 0.0036 * std::pow( force.Z() , 2 ) + 0.0550 * force.Z() + 1.3306;
+               }
+      else
+               {
+                  capacitance.z = 0.0;
+                  wrench.force.z = 0.0;
+               }
+      
       
       wrench.force.x = force.X();
       

@@ -38,7 +38,7 @@
 
 #include <tf/tf.h>
 
-#include <gazebo_plugins/gazebo_ros_bumper.h>
+#include <cs_test/cs_change.h>
 #include <gazebo_plugins/gazebo_ros_utils.h>
 
 namespace gazebo
@@ -294,27 +294,13 @@ void GazeboRosBumper::OnContact()
       // set wrenches
       geometry_msgs::Wrench wrench;
 
-      if(contact_position.x > 1)
-      {
-          wrench.force.x  = 2;
-      }
-      else
-      {
-          wrench.force.x = 1;
-      }
-    
-      wrench.force.y  = force.Y();
+      capacitance.z = 0.0092 * std::pow( force.Z() , 2 ) + 0.0393 * force.Z() + 1.3319;
+      
+      wrench.force.x = force.X();
+      
+      wrench.force.y = force.Y();
 
-      // if(contact_position.z > 0.5)
-      // {
-      //     wrench.force.z  = 2;
-      // }
-      // else
-      // {
-      //     wrench.force.z  = 1;
-      // }
-
-      wrench.force.z = force.Z();
+      wrench.force.z = - 22.402 * std::pow( capacitance.z , 2 ) + 79.235 * capacitance.z - 65.768;
     
       wrench.torque.x = torque.X();
       wrench.torque.y = torque.Y();

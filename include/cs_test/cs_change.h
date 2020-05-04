@@ -31,6 +31,7 @@
 
 #include <std_msgs/String.h>
 #include <geometry_msgs/Wrench.h>
+#include <geometry_msgs/Vector3.h>
 
 #include <gazebo_msgs/ContactState.h>
 #include <gazebo_msgs/ContactsState.h>
@@ -76,6 +77,9 @@ namespace gazebo
 
     /// 外部入力のメッセージ型
     public: geometry_msgs::Wrench pubforce;
+
+    // 静電容量のメッセージ型
+    public: geometry_msgs::Vector3 capacitance;
 
     private: sensors::ContactSensorPtr parentSensor;
 

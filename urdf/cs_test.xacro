@@ -73,7 +73,7 @@
     </contact>
     <plugin name="cs_test" filename="libcs_test.so">
       <bumperTopicName>state1</bumperTopicName>
-      <frameName>world</frameName>
+      <frameName>base1</frameName>
     </plugin>
    </sensor>
 </gazebo>
@@ -90,7 +90,7 @@
     </contact>
     <plugin name="cs_test" filename="libcs_test.so">
       <bumperTopicName>state2</bumperTopicName>
-      <frameName>world</frameName>
+      <frameName>base2</frameName>
     </plugin>
    </sensor>
 </gazebo>

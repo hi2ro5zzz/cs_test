@@ -72,6 +72,9 @@ namespace gazebo
     private: ros::NodeHandle* rosnode_;
     private: ros::Publisher contact_pub_;
 
+    // 静電容量パブリッシャ(add new)
+    private: ros::Publisher capapub;
+
     /// 外部入力を受け取るサブスクライバ(add new)
     private: ros::Subscriber forcesub;
 

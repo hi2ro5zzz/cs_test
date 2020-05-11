@@ -114,6 +114,9 @@ void GazeboRosBumper::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
   this->contact_pub_ = this->rosnode_->advertise<gazebo_msgs::ContactsState>(
     std::string(this->bumper_topic_name_), 1);
 
+  this->capapub = this->rosnode_->advertise<geometry_msgs::Vector3>(
+    std::string("capacitance"),1);
+
   // Initialize
   // start custom queue for contact bumper
   this->callback_queue_thread_ = boost::thread(
@@ -371,6 +374,7 @@ void GazeboRosBumper::OnContact()
     this->contact_state_msg_.states.push_back(state);
   }
 
+  this->capapub.publish(this->capacitance);
   this->contact_pub_.publish(this->contact_state_msg_);
 }
 

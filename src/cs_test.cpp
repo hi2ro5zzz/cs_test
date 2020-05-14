@@ -82,6 +82,7 @@ void GazeboRosBumper::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
   // "publishing contact/collisions to this topic name: "
   //   << this->bumper_topic_name_ << std::endl;
   this->bumper_topic_name_ = "bumper_states";
+  // this->capa_name = "capacitance";
   if (_sdf->HasElement("bumperTopicName"))
     this->bumper_topic_name_ =
       _sdf->GetElement("bumperTopicName")->Get<std::string>();
@@ -114,8 +115,8 @@ void GazeboRosBumper::Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf)
   this->contact_pub_ = this->rosnode_->advertise<gazebo_msgs::ContactsState>(
     std::string(this->bumper_topic_name_), 1);
 
-  this->capapub = this->rosnode_->advertise<geometry_msgs::Vector3>(
-    std::string("capacitance"),1);
+  // this->capapub = this->rosnode_->advertise<geometry_msgs::Vector3>(
+  //   std::string(this->capa_name), 1);
 
   // Initialize
   // start custom queue for contact bumper
@@ -214,6 +215,8 @@ void GazeboRosBumper::OnContact()
     // For each collision contact
     // Create a ContactState
     gazebo_msgs::ContactState state;
+
+    // geometry_msgs::Vector3 cap;
     /// \TODO:
     gazebo::msgs::Contact contact = contacts.contact(i);
 
@@ -298,64 +301,84 @@ void GazeboRosBumper::OnContact()
       geometry_msgs::Wrench wrench;
 
       // calculate capacitance
-      if( contact.position.x < 0.5 && contact.position.x > -0.5 && 
-          contact.position.y < 0.5 && contact.position.y > -0.5 )
-               {
-                  capacitance.z = 0.0092 * std::pow( force.Z() , 2 ) + 0.0393 * force.Z() + 1.3318;
-               }
-      else if( contact.position.x < 1.0 && contact.position.x >  0.5 && 
-               contact.position.y < 0.5 && contact.position.y > -0.5 )
-               {
-                  capacitance.z = 0.0106 * std::pow( force.Z() , 2 ) + 0.0361 * force.Z() + 1.3321;
-               }
-      else if( contact.position.x < 1.5 && contact.position.x >  1.0 && 
-               contact.position.y < 0.5 && contact.position.y > -0.5 )
-               {
-                  capacitance.z = 0.0068 * std::pow( force.Z() , 2 ) + 0.0478 * force.Z() + 1.3308;
-               }
-      else if( contact.position.x < -0.5 && contact.position.x > -1.0 && 
-               contact.position.y <  0.5 && contact.position.y > -0.5 )
-               {
-                  capacitance.z = 0.0082 * std::pow( force.Z() , 2 ) + 0.0436 * force.Z() + 1.3316;
-               }
-      else if( contact.position.x < -1.0 && contact.position.x > -1.5 && 
-               contact.position.y <  0.5 && contact.position.y > -0.5 )
-               {
-                  capacitance.z = 0.0041 * std::pow( force.Z() , 2 ) + 0.0538 * force.Z() + 1.3298;
-               }
-      else if( contact.position.x < 0.5 && contact.position.x > -0.5 && 
-               contact.position.y < 1.0 && contact.position.y >  0.5 )
-               {
-                  capacitance.z = 0.0100 * std::pow( force.Z() , 2 ) + 0.0419 * force.Z() + 1.3324;
-               }
-      else if( contact.position.x < 0.5 && contact.position.x > -0.5 && 
-               contact.position.y < 1.5 && contact.position.y >  1.0 )
-               {
-                  capacitance.z = 0.0059 * std::pow( force.Z() , 2 ) + 0.0533 * force.Z() + 1.3320;
-               }
-      else if( contact.position.x <  0.5 && contact.position.x > -0.5 && 
-               contact.position.y < -0.5 && contact.position.y > -1.0 )
-               {
-                  capacitance.z = 0.0082 * std::pow( force.Z() , 2 ) + 0.0448 * force.Z() + 1.3322;
-               }
-      else if( contact.position.x <  0.5 && contact.position.x > -0.5 && 
-               contact.position.y < -1.0 && contact.position.y > -1.5 )
-               {
-                  capacitance.z = 0.0036 * std::pow( force.Z() , 2 ) + 0.0550 * force.Z() + 1.3306;
-               }
-      else
-               {
-                  capacitance.z = 0.0;
-                  wrench.force.z = 0.0;
-               }
+      // if( contact_position.x < 0.5 && contact_position.x > -0.5 && 
+      //     contact_position.y < 0.5 && contact_position.y > -0.5 )
+      //          {
+      //             cap.x = 0;
+      //             cap.y = 0;
+      //             cap.z = 0.0092 * std::pow( force.Z() , 2 ) + 0.0393 * force.Z() + 1.3318;
+      //          }
+      // else if( contact_position.x < 1.0 && contact_position.x >  0.5 && 
+      //          contact_position.y < 0.5 && contact_position.y > -0.5 )
+      //          {
+      //             cap.x = 0;
+      //             cap.y = 0;
+      //             cap.z = 0.0106 * std::pow( force.Z() , 2 ) + 0.0361 * force.Z() + 1.3321;
+      //          }
+      // else if( contact_position.x < 1.5 && contact_position.x >  1.0 && 
+      //          contact_position.y < 0.5 && contact_position.y > -0.5 )
+      //          {
+      //             cap.x = 0;
+      //             cap.y = 0;
+      //             cap.z = 0.0068 * std::pow( force.Z() , 2 ) + 0.0478 * force.Z() + 1.3308;
+      //          }
+      // else if( contact_position.x < -0.5 && contact_position.x > -1.0 && 
+      //          contact_position.y <  0.5 && contact_position.y > -0.5 )
+      //          {
+      //             cap.x = 0;
+      //             cap.y = 0;
+      //             cap.z = 0.0082 * std::pow( force.Z() , 2 ) + 0.0436 * force.Z() + 1.3316;
+      //          }
+      // else if( contact_position.x < -1.0 && contact_position.x > -1.5 && 
+      //          contact_position.y <  0.5 && contact_position.y > -0.5 )
+      //          {
+      //             cap.x = 0;
+      //             cap.y = 0;
+      //             cap.z = 0.0041 * std::pow( force.Z() , 2 ) + 0.0538 * force.Z() + 1.3298;
+      //          }
+      // else if( contact_position.x < 0.5 && contact_position.x > -0.5 && 
+      //          contact_position.y < 1.0 && contact_position.y >  0.5 )
+      //          {
+      //             cap.x = 0;
+      //             cap.y = 0;
+      //             cap.z = 0.0100 * std::pow( force.Z() , 2 ) + 0.0419 * force.Z() + 1.3324;
+      //          }
+      // else if( contact_position.x < 0.5 && contact_position.x > -0.5 && 
+      //          contact_position.y < 1.5 && contact_position.y >  1.0 )
+      //          {
+      //             cap.x = 0;
+      //             cap.y = 0;
+      //             cap.z = 0.0059 * std::pow( force.Z() , 2 ) + 0.0533 * force.Z() + 1.3320;
+      //          }
+      // else if( contact_position.x <  0.5 && contact_position.x > -0.5 && 
+      //          contact_position.y < -0.5 && contact_position.y > -1.0 )
+      //          {
+      //             cap.x = 0;
+      //             cap.y = 0;
+      //             cap.z = 0.0082 * std::pow( force.Z() , 2 ) + 0.0448 * force.Z() + 1.3322;
+      //          }
+      // else if( contact_position.x <  0.5 && contact_position.x > -0.5 && 
+      //          contact_position.y < -1.0 && contact_position.y > -1.5 )
+      //          {
+      //             cap.x = 0;
+      //             cap.y = 0;
+      //             cap.z = 0.0036 * std::pow( force.Z() , 2 ) + 0.0550 * force.Z() + 1.3306;
+      //          }
+      // else
+      //          {
+      //             cap.x = 0;
+      //             cap.y = 0;
+      //             cap.z = 0.0;
+      //             wrench.force.z = 0.0;
+      //          }
       
       
       wrench.force.x = force.X();
       
       wrench.force.y = force.Y();
 
-      wrench.force.z = - 22.402 * std::pow( capacitance.z , 2 ) + 79.235 * capacitance.z - 65.768;
-      // wrench.force.z = force.Z();
+      // wrench.force.z = - 22.402 * std::pow( capacitance.z , 2 ) + 79.235 * capacitance.z - 65.768;
+      wrench.force.z = force.Z();
     
       wrench.torque.x = torque.X();
       wrench.torque.y = torque.Y();
@@ -372,9 +395,10 @@ void GazeboRosBumper::OnContact()
 
     state.total_wrench = total_wrench;
     this->contact_state_msg_.states.push_back(state);
+    // this->capacitance = cap;
   }
 
-  this->capapub.publish(this->capacitance);
+  // this->capapub.publish(this->capacitance);
   this->contact_pub_.publish(this->contact_state_msg_);
 }
 

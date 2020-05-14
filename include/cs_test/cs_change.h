@@ -62,7 +62,7 @@ namespace gazebo
     /// \param take in SDF root element
     public: void Load(sensors::SensorPtr _parent, sdf::ElementPtr _sdf);
 
-    /// 外部入力コールバック関数の定義
+    /// 外部入力コールバック関数の定義(add new)
     private: void msgCB(const geometry_msgs::Wrench::ConstPtr& msg);
 
     /// Update the controller
@@ -72,17 +72,14 @@ namespace gazebo
     private: ros::NodeHandle* rosnode_;
     private: ros::Publisher contact_pub_;
 
-    // 静電容量パブリッシャ(add new)
+    /// 静電容量パブリッシャ(add new)
     private: ros::Publisher capapub;
 
     /// 外部入力を受け取るサブスクライバ(add new)
     private: ros::Subscriber forcesub;
 
-    /// 外部入力のメッセージ型
+    /// 外部入力のメッセージ型(add new)
     public: geometry_msgs::Wrench pubforce;
-
-    // 静電容量のメッセージ型
-    public: geometry_msgs::Vector3 capacitance;
 
     private: sensors::ContactSensorPtr parentSensor;
 
@@ -91,8 +88,13 @@ namespace gazebo
 
     private: std::string frame_name_;
 
+    private: std::string capa_name;
+
     /// \brief broadcast some string for now.
     private: gazebo_msgs::ContactsState contact_state_msg_;
+
+    /// 静電容量のメッセージ型(add new)
+    private: geometry_msgs::Vector3 capacitance;
 
     /// \brief for setting ROS name space
     private: std::string robot_namespace_;

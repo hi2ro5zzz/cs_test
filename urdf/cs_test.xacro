@@ -14,14 +14,14 @@
     <visual>
         <origin xyz="0 0 0.6" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://cs_test/models/box.dae"/>
+        <mesh filename="package://cs_test/models/box.dae" scale="4 4 1"/>
       </geometry>
     </visual>
 
     <collision name="base1">
         <origin xyz="0 0 0.6" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://cs_test/models/box.dae"/>
+        <mesh filename="package://cs_test/models/box.dae" scale="4 4 1"/>
       </geometry>
     </collision>
 

@@ -5,14 +5,14 @@
     <visual>
         <origin xyz="3 3 2" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://cs_test/models/box.dae" scale="0.5 0.5 0.5"/>
+        <mesh filename="package://cs_test/models/box.dae" scale="0.1 0.1 0.1"/>
       </geometry>
     </visual>
 
     <collision name="box2">
         <origin xyz="3 3 2" rpy="0 0 0"/>
       <geometry>
-        <mesh filename="package://cs_test/models/box.dae" scale="0.5 0.5 0.5"/>
+        <mesh filename="package://cs_test/models/box.dae" scale="0.1 0.1 0.1"/>
       </geometry>
     </collision>
 

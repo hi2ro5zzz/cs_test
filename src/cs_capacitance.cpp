@@ -95,6 +95,8 @@ int main(int argc, char** argv)
 
     ofstream ofs("result.csv");
 
+    int zone = 0;
+
     while(ros::ok())
     {
         geometry_msgs::Vector3 capacitance;
@@ -102,6 +104,7 @@ int main(int argc, char** argv)
       if( pos1.x < 0.5 && pos1.x > -0.5 && 
           pos1.y < 0.5 && pos1.y > -0.5 )
                {
+                  zone = 1;
                   capacitance.x = 0;
                   capacitance.y = 0;
                   capacitance.z = 0.0092 * std::pow( force1.force.z , 2 ) + 0.0393 * force1.force.z + 1.3318;
@@ -109,6 +112,7 @@ int main(int argc, char** argv)
       else if( pos1.x < 1.0 && pos1.x >  0.5 && 
                pos1.y < 0.5 && pos1.y > -0.5 )
                {
+                  zone = 2;
                   capacitance.x = 0;
                   capacitance.y = 0;
                   capacitance.z = 0.0106 * std::pow( force1.force.z , 2 ) + 0.0361 * force1.force.z + 1.3321;
@@ -116,6 +120,7 @@ int main(int argc, char** argv)
       else if( pos1.x < 1.5 && pos1.x >  1.0 && 
                pos1.y < 0.5 && pos1.y > -0.5 )
                {
+                  zone = 3;
                   capacitance.x = 0;
                   capacitance.y = 0;
                   capacitance.z = 0.0068 * std::pow( force1.force.z , 2 ) + 0.0478 * force1.force.z + 1.3308;
@@ -123,6 +128,7 @@ int main(int argc, char** argv)
       else if( pos1.x < -0.5 && pos1.x > -1.0 && 
                pos1.y <  0.5 && pos1.y > -0.5 )
                {
+                  zone = 4;
                   capacitance.x = 0;
                   capacitance.y = 0;
                   capacitance.z = 0.0082 * std::pow( force1.force.z , 2 ) + 0.0436 * force1.force.z + 1.3316;
@@ -130,6 +136,7 @@ int main(int argc, char** argv)
       else if( pos1.x < -1.0 && pos1.x > -1.5 && 
                pos1.y <  0.5 && pos1.y > -0.5 )
                {
+                  zone = 5;
                   capacitance.x = 0;
                   capacitance.y = 0;
                   capacitance.z = 0.0041 * std::pow( force1.force.z , 2 ) + 0.0538 * force1.force.z + 1.3298;
@@ -137,6 +144,7 @@ int main(int argc, char** argv)
       else if( pos1.x < 0.5 && pos1.x > -0.5 && 
                pos1.y < 1.0 && pos1.y >  0.5 )
                {
+                  zone = 6;
                   capacitance.x = 0;
                   capacitance.y = 0;
                   capacitance.z = 0.0100 * std::pow( force1.force.z , 2 ) + 0.0419 * force1.force.z + 1.3324;
@@ -144,6 +152,7 @@ int main(int argc, char** argv)
       else if( pos1.x < 0.5 && pos1.x > -0.5 && 
                pos1.y < 1.5 && pos1.y >  1.0 )
                {
+                  zone = 7;
                   capacitance.x = 0;
                   capacitance.y = 0;
                   capacitance.z = 0.0059 * std::pow( force1.force.z , 2 ) + 0.0533 * force1.force.z + 1.3320;
@@ -151,6 +160,7 @@ int main(int argc, char** argv)
       else if( pos1.x <  0.5 && pos1.x > -0.5 && 
                pos1.y < -0.5 && pos1.y > -1.0 )
                {
+                  zone = 8;
                   capacitance.x = 0;
                   capacitance.y = 0;
                   capacitance.z = 0.0082 * std::pow( force1.force.z , 2 ) + 0.0448 * force1.force.z + 1.3322;
@@ -158,18 +168,20 @@ int main(int argc, char** argv)
       else if( pos1.x <  0.5 && pos1.x > -0.5 && 
                pos1.y < -1.0 && pos1.y > -1.5 )
                {
+                  zone = 9;
                   capacitance.x = 0;
                   capacitance.y = 0;
                   capacitance.z = 0.0036 * std::pow( force1.force.z , 2 ) + 0.0550 * force1.force.z + 1.3306;
                }
       else
                {
+                  zone = 0;
                   capacitance.x = 0;
                   capacitance.y = 0;
                   capacitance.z = 0.0;
                }
 
-        ofs << pos1.x << "," << force1.force.z << "," << capacitance.z << "," << endl; 
+        ofs << zone << "," << pos1.x << "," << pos1.y << "," << force1.force.z << "," << capacitance.z << "," << endl; 
 
         capacitance_pub.publish(capacitance);
         ros::spinOnce();

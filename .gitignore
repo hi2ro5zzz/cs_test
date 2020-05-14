@@ -1,2 +1,5 @@
 # .vscode 関係を含まない
 .vscode
+
+# log を無視
+/log/

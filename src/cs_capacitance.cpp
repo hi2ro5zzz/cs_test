@@ -97,8 +97,8 @@ int main(int argc, char** argv)
     s2.states.push_back(*(new gazebo_msgs::ContactState()));
 
     // Gazeboから取得し，格納したデータをパブリッシュ
-    cs_pub1 = nh.advertise<geometry_msgs::Wrench>("force1",1);
-    cs_pub2 = nh.advertise<geometry_msgs::Wrench>("force2",1);
+    cs_pub1 = nh.advertise<geometry_msgs::Wrench>("calforce1",1);
+   //  cs_pub2 = nh.advertise<geometry_msgs::Wrench>("calforce2",1);
     relativepos_pub = nh.advertise<geometry_msgs::Vector3>("relative_position",1);
 
     capacitance_pub = nh.advertise<geometry_msgs::Vector3>("capacitance",1);
@@ -143,14 +143,12 @@ int main(int argc, char** argv)
                   if(force1.force.z < 4)
                   {
                      capacitance.z = 0.0092 * std::pow( force1.force.z , 2 ) + 0.0393 * force1.force.z + 1.3318;
-                     calforce1.z = 13.98*capacitance.z - 18.529;
+                     calforce1.force.z = 13.98 * capacitance.z - 18.529;
                   }
                   else
                   {
                      capacitance.z = - 0.051 * std::pow( force1.force.z , 2 ) + 0.6068 * force1.force.z + 0.0369;
-                  }
-                  
-               
+                  }  
                }
       else if( (r > 0.08E-3 && r <= 0.24E-3) &&
                (theta > -M_PI/4 && theta <= M_PI/4) )
@@ -161,13 +159,12 @@ int main(int argc, char** argv)
                   if(force1.force.z < 4)
                   {
                      capacitance.z = 0.0106 * std::pow( force1.force.z , 2 ) + 0.0361 * force1.force.z + 1.3321;
-                     calforce1.z = 13.98*capacitance.z - 18.529;
+                     calforce1.force.z = 13.98 * capacitance.z - 18.529;
                   }
                   else
                   {
                      capacitance.z = 0.0337 * force1.force.z + 1.5125;
-                  }
-                  
+                  }  
                }
       else if( (r > 0.24E-3 && r <= 0.40E-3) &&
                (theta > -M_PI/4 && theta <= M_PI/4) )
@@ -178,13 +175,12 @@ int main(int argc, char** argv)
                   if(force1.force.z < 3.5)
                   {
                      capacitance.z = 0.0096 * std::pow( force1.force.z , 2 ) + 0.0408 * force1.force.z + 1.3315;
-                     calforce1.z = 13.98*capacitance.z - 18.529;
+                     calforce1.force.z = 13.98 * capacitance.z - 18.529;
                   }
                   else
                   {
                      capacitance.z = 0.0156 * force1.force.z + 1.5426;
-                  }
-                  
+                  }   
                }
       else if( (r > 0.08E-3 && r <= 0.24E-3) &&
                ((theta > 3*M_PI/4 && theta <= M_PI) || (theta > -M*PI && theta <= -3*M_PI/4)) )
@@ -195,13 +191,12 @@ int main(int argc, char** argv)
                   if(force1.force.z < 3.5)
                   {
                      capacitance.z = 0.0086 * std::pow( force1.force.z , 2 ) + 0.0425 * force1.force.z + 1.3317;
-                     calforce1.z = 13.98*capacitance.z - 18.529;
+                     calforce1.force.z = 13.98 * capacitance.z - 18.529;
                   }
                   else
                   {
                      capacitance.z = - 0.0045 * std::pow( force1.force.z , 2 ) + 0.0682 * force1.force.z + 1.4196;
-                  }
-                  
+                  }  
                }
       else if( (r > 0.24E-3 && r <= 0.40E-3) &&
                ((theta > 3*M_PI/4 && theta <= M_PI) || (theta > -M*PI && theta <= -3*M_PI/4)) )
@@ -212,13 +207,12 @@ int main(int argc, char** argv)
                   if(force1.force.z < 3.3)
                   {
                      capacitance.z = 0.0087 * std::pow( force1.force.z , 2 ) + 0.0426 * force1.force.z + 1.3309;
-                     calforce1.z = 13.98*capacitance.z - 18.529;
+                     calforce1.force.z = 13.98 * capacitance.z - 18.529;
                   }
                   else
                   {
                      capacitance.z = - 0.003 * std::pow( force1.force.z , 2 ) + 0.0422 * force1.force.z + 1.4635;
-                  }
-                  
+                  }                  
                }
       else if( (r > 0.08E-3 && r <= 0.24E-3) &&
                (theta > M_PI/4 && theta <= 3*M_PI/4) )
@@ -229,13 +223,12 @@ int main(int argc, char** argv)
                   if(force1.force.z < 4)
                   {
                      capacitance.z = 0.0100 * std::pow( force1.force.z , 2 ) + 0.0419 * force1.force.z + 1.3324;
-                     calforce1.z = 13.98*capacitance.z - 18.529;
+                     calforce1.force.z = 13.98 * capacitance.z - 18.529;
                   }
                   else
                   {
                      capacitance.z = 0.0387 * force1.force.z + 1.5077;
-                  }
-                  
+                  }                  
                }
       else if( (r > 0.24E-3 && r <= 0.40E-3) &&
                (theta > M_PI/4 && theta <= 3*M_PI/4) )
@@ -246,13 +239,12 @@ int main(int argc, char** argv)
                   if(force1.force.z < 3.5)
                   {
                      capacitance.z = 0.0089 * std::pow( force1.force.z , 2 ) + 0.0463 * force1.force.z + 1.3327;
-                     calforce1.z = 13.98*capacitance.z - 18.529;
+                     calforce1.force.z = 13.98 * capacitance.z - 18.529;
                   }
                   else
                   {
                      capacitance.z = 0.0168 * force1.force.z + 1.5440;
-                  }
-                  
+                  }                  
                }
       else if( (r > 0.08E-3 && r <= 0.24E-3) &&
                (theta > -3*M_PI/4 && theta <= -M_PI/4) )
@@ -263,13 +255,12 @@ int main(int argc, char** argv)
                   if(force1.force.z < 3.5)
                   {
                      capacitance.z = 0.0084 * std::pow( force1.force.z , 2 ) + 0.0441 * force1.force.z + 1.3323;
-                     calforce1.z = 13.98*capacitance.z - 18.529;
+                     calforce1.force.z = 13.98 * capacitance.z - 18.529;
                   }
                   else
                   {
                      capacitance.z = - 0.0075 * std::pow( force1.force.z , 2 ) + 0.0946 * force1.force.z + 1.3675;
-                  }
-                  
+                  }                  
                }
       else if( (r > 0.24E-3 && r <= 0.40E-3) &&
                (theta > -3*M_PI/4 && theta <= -M_PI/4) )
@@ -280,13 +271,12 @@ int main(int argc, char** argv)
                   if(force1.force.z < 3.3)
                   {
                      capacitance.z = 0.0080 * std::pow( force1.force.z , 2 ) + 0.0443 * force1.force.z + 1.3318;
-                     calforce1.z = 13.98*capacitance.z - 18.529;
+                     calforce1.force.z = 13.98 * capacitance.z - 18.529;
                   }
                   else
                   {
                      capacitance.z = - 0.0021 * std::pow( force1.force.z , 2 ) + 0.0348 * force1.force.z + 1.4769;
-                  }
-                  
+                  }                  
                }
       else
                {
@@ -297,11 +287,12 @@ int main(int argc, char** argv)
                }
 
 
-        ofs << zone << "," << relativepos1.x << "," << relativepos1.y << "," << force1.force.z << "," << capacitance.z << "," << endl; 
+      ofs << zone << "," << relativepos1.x << "," << relativepos1.y << "," << force1.force.z << "," << capacitance.z << "," << endl; 
 
-        capacitance_pub.publish(capacitance);
-        relativepos_pub.publish(relativepos);
-        ros::spinOnce();
-        loop_rate.sleep();
+      cs_pub1.publish(calforce1);
+      capacitance_pub.publish(capacitance);
+      relativepos_pub.publish(relativepos);
+      ros::spinOnce();
+      loop_rate.sleep();
     }
 }

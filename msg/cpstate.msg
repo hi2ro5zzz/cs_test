@@ -1,0 +1,4 @@
+int32 zone
+geometry_msgs/Wrench calforce
+geometry_msgs/Vector3 capacitance
+geometry_msgs/Vector3 relativeposition

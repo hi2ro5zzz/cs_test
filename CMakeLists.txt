@@ -20,10 +20,24 @@ find_package(catkin REQUIRED COMPONENTS
   gazebo_msgs
   std_msgs
   geometry_msgs
+  message_generation
 )
 
 # Depend on system install of Gazebo
 find_package(gazebo REQUIRED)
+
+## Generate messages in the 'msg' folder
+add_message_files(
+  FILES
+  cpstate.msg
+)
+
+## Generate added messages and services with any dependencies listed here
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+  geometry_msgs
+)
 
 link_directories(${GAZEBO_LIBRARY_DIRS})
 include_directories(include ${Boost_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${GAZEBO_INCLUDE_DIRS})
@@ -39,6 +53,7 @@ catkin_package(
     gazebo_msgs 
     std_msgs
     geometry_msgs
+    message_runtime
 )
 
 add_library(cs_test src/cs_test.cpp)
